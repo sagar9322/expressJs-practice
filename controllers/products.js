@@ -33,16 +33,15 @@ exports.postAddProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll().then(products => {
-    res.render('shop', {
-      prods: products,
-      pageTitle: 'Shop',
-      path: '/',
-      hasProducts: products.length > 0,
-      activeShop: true,
-      productCSS: true
+  Product.findAll()
+    .then(products => {
+      res.render('shop/product-list', {
+        prods: products,
+        pageTitle: 'All Products',
+        path: '/products'
+      });
+    })
+    .catch(err => {
+      console.log(err);
     });
-  }).catch((err)=> {
-    console.log(err);
-  });
 };
